@@ -126,7 +126,7 @@ public class StoreFrontBasic {
 		System.out.println("Will you ask the shopkeep a question?\n1. Yes\n2. No");
 		chc = s.next();
 
-		while (chc != "2" && responses.size() > 0) {
+		while (chc != "2" || responses.size() > 0) {
 			System.out.println("You ask the shopkeep if he has heard anything interesting.\n");
 			i = r.nextInt(responses.size());
 			System.out.println(responses.get(i) + "\n\n\n");
