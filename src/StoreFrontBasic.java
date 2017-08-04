@@ -137,7 +137,8 @@ public class StoreFrontBasic {
 
 			System.out.println("Will you ask another question?\n1. Yes\n2. No\n\n\n");
 			chc = s.next();
-
+			if(chc.equals("2")){
+				return answer;
 		}
 		s.close();
 		return answer;
