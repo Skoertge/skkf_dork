@@ -12,6 +12,7 @@ public class Battle {
 
 		// Populate HashMap with enemies based on location
 		if (location == "cemetery") {
+			enemies.clear();
 			// Add rat with HP of 3
 			enemies.put("rat", 3);
 			// Add skeleton with HP of 8
@@ -29,6 +30,7 @@ public class Battle {
 			encounter(location, randomEnemy, enemyHP);
 
 		} else if (location == "cave") {
+			enemies.clear();
 			// Add rat with HP of 3
 			enemies.put("rat", 3);
 			// Add bat with HP of 6
@@ -58,40 +60,73 @@ public class Battle {
 			}
 		};
 
-		System.out.println(options);
+		System.out.print(options);
 
 		Scanner s = new Scanner(System.in);
 		String choice = s.next();
 
 		if (choice.equalsIgnoreCase("Attack") || (choice == "1")) {
-			attack();
+			attack(PlayerStats.pDamage(), randomEnemy, enemyHP);
 		} else if (choice.equalsIgnoreCase("Defend") || (choice == "2")) {
-			defend();
+			defend(PlayerStats.pArmor(), randomEnemy);
 		} else if (choice.equalsIgnoreCase("Use Item") || (choice == "3")) {
-			useItem();
+			useItem(pHP);
 		} else if (choice.equalsIgnoreCase("Escape") || (choice == "4")) {
-			escape();
+			PlayerStats.pArmor();
+			escape(PlayerStats.pArmor(), randomEnemy);
 		}
 	}
 
-	private static void attack() {
-		// TODO Auto-generated method stub
+	private static void attack(float pDamage, String randomEnemy, Integer enemyHP) {
+		// Pull weapon damage from player's inventory
+		// Randomize a number +/-2 from the weapon damage
+		while (enemyHP > 0) {
+			
+			enemyTurn(randomEnemy);
+		}
+		enemyDeath(randomEnemy);
+	}
+
+	private static void defend(float pArmor, String randomEnemy) {
+		// Pull armor from player's inventory
+		// Randomize a number +/- 2 from the armor rating
+		while (pHP > 0) {
+			
+			enemyTurn(randomEnemy);
+		}
+		playerDeath();
+	}
+
+	private static void useItem(Integer pHP) {
+		// Pull player's inventory
+		// Provide an arraylist of options for player
+	}
+
+	private static void escape(float pArmor, String randomEnemy) {
+		// Pull player's speed stat
+		// If player's speed stat meets x, escape
+		// If player's speed stat does not meet x, move to enemy's turn
+		Random r = new Random();
+		int escapeChance = r.nextInt(100);
+
+		if (pArmor >= escapeChance) {
+			System.out.println("You have escaped!");
+		} else if (pArmor < escapeChance) {
+			System.out.println("You cannot escape!");
+			enemyTurn(randomEnemy);
+		}
+	}
+
+	private static void enemyTurn(String randomEnemy) {
 
 	}
 
-	private static void defend() {
-		// TODO Auto-generated method stub
-
+	private static void enemyDeath(String randomEnemy) {
+		System.out.println("You have slain the " + randomEnemy + "!");
 	}
-
-	private static void useItem() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private static void escape() {
-		// TODO Auto-generated method stub
-
+	
+	private static void playerDeath() {
+		System.out.println("You have been slain!");
 	}
 
 }
