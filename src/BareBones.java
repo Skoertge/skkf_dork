@@ -4,10 +4,13 @@ public abstract class BareBones {
 
 	protected int level;
 	protected int health;
+	protected int str;
+	protected int dex;
 	protected int attPower;
 	protected int defense;
 	protected int exp;
 	protected int xpMod;
+	protected int escapeDC;
 	protected int id;
 	protected String name;
 	protected HashMap<String, Integer> userArmor;
@@ -101,5 +104,29 @@ public abstract class BareBones {
 
 	protected void setExp(int exp) {
 		this.exp = exp;
+	}
+
+	protected int getStr() {
+		return str;
+	}
+
+	protected void setStr(int str) {
+		this.str = str;
+	}
+
+	protected int getDex() {
+		return dex;
+	}
+
+	protected void setDex(int dex) {
+		this.dex = dex;
+	}
+
+	protected int getEscapeDC() {
+		return escapeDC;
+	}
+
+	protected void setEscapeDC(int escapeDC) {
+		this.escapeDC = escapeDC;
 	}
 }

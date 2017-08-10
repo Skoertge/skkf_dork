@@ -23,23 +23,24 @@ public class Tutorial {
 			// ....and if input is 1 (attack), then proceed with battle
 			if (Game.userInput.hasNextInt()) {
 				int input = Game.userInput.nextInt();
-				if (!(input == 1 || input == 2 || input == 3 || input == 4)) {
+				if (!(input == 1 || input == 2 || input == 3)) {
 					CombatSystem.battleInput();
 				} else if (input == 1) {
-					combatSystem.battle();
+					combatSystem.attack();
+				} else if (input == 2) {
+					combatSystem.useItem();
+				} else if (input == 3) {
+					combatSystem.escape();
 				}
 			}
-		}
-		if (!fighting) {
-			// If the battle ends with the user having 0 HP, print loss...
-			// ....if the battle ends with the enemy having 0 HP, print win
-			if (Game.userHero.getHealth() <= 0) {
-				youLost();
-			} else if (enemy0.getHealth() <= 0) {
-				youWon();
-				LootDrops.main(null);
-				LevelSystem.main(null);
-
+			if (!fighting) {
+				// If the battle ends with the user having 0 HP, print loss...
+				// ....if the battle ends with the enemy having 0 HP, print win
+				if (Game.userHero.getHealth() <= 0) {
+					youLost();
+				} else if (enemy0.getHealth() <= 0) {
+					youWon();
+				}
 			}
 		}
 	}
@@ -50,10 +51,13 @@ public class Tutorial {
 	}
 
 	// Print win message
-	public static void youWon() {
+	public static void youWon() throws InterruptedException {
 		System.out.println("\nYou have slain the enemy " + Tutorial.enemy0.getName() + "!");
 		Game.contDialogue();
 		Game.userInput.nextLine();
+		LootDrops.main(null);
+		LevelSystem.main(null);
+		Game.contDialogue();
 	}
 
 	// Print loss message
