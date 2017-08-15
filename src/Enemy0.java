@@ -9,7 +9,7 @@ public class Enemy0 extends BareBones {
 		ArrayList<String> enemies = new ArrayList<String>() {
 			{
 				//add("Rat");
-				//add("Skeleton");
+				add("Skeleton");
 				add("Zombie");
 			}
 		};
@@ -20,22 +20,22 @@ public class Enemy0 extends BareBones {
 		this.name = enemies.get(i);
 
 		if (name.equals("Rat")) {
-			this.health = 20;
-			this.attPower = 3;
-			this.defense = 5;
-			this.xpMod = 10;
+			this.enemyHP = (r.nextInt(8) + 1) % 4;
+			this.meleeDamage = 3;
+			this.armorClass = 14;
+			this.xpMod = 50;
 			this.setEscapeDC(10);
 		} else if (name.equals("Skeleton")) {
-			this.health = 50;
-			this.attPower = 15;
-			this.defense = 8;
-			this.xpMod = 50;
+			this.enemyHP = r.nextInt(12) + 1;
+			this.meleeDamage = 6;
+			this.armorClass = 15;
+			this.xpMod = 100;
 			this.setEscapeDC(15);
 		} else if (name.equals("Zombie")) {
-			this.health = 80;
-			this.attPower = 7;
-			this.defense = 10;
-			this.xpMod = 30;
+			this.enemyHP = ((r.nextInt(12) + 1) + (r.nextInt(12) + 1));
+			this.meleeDamage = 8;
+			this.armorClass = 11;
+			this.xpMod = 100;
 			this.setEscapeDC(5);
 		}
 

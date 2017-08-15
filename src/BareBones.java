@@ -3,59 +3,55 @@ import java.util.HashMap;
 public abstract class BareBones {
 
 	protected int level;
-	protected int health;
-	protected int str;
-	protected int dex;
-	protected int attPower;
-	protected int defense;
-	protected int exp;
+	protected int meleeDamage;
+	protected int rangedDamage;
+	protected int strength;
+	protected int armorClass;
+	protected int experience;
+	protected int proficiencyPoints;
 	protected int xpMod;
-	protected int escapeDC;
+	protected int difficultyClass;
+	protected int enemyHP;
 	protected int id;
 	protected String name;
+	protected String userClass;
+	protected Object meleeWeapon;
+	protected Object rangedWeapon;
 	protected HashMap<String, Integer> userArmor;
 	protected HashMap<String, Integer> userWeapons;
-	protected HashMap<String, Integer> userBackpack;
+	protected HashMap<String, Integer> userMisc;
+	protected HashMap<String, Integer> userSpells;
 
 	public int getId() {
 		return id;
 	}
 
-	public int getHealth() {
-		return health;
+	public int getMeleeDamage() {
+		return meleeDamage;
 	}
 
-	public void setHealth(int health) {
-		if (health < 0) {
-			this.health = 0;
-		} else {
-			this.health = health;
-		}
+	public void setMeleeDamage(int meleeDamage) {
+		this.meleeDamage = meleeDamage;
 	}
 
-	public int getAttPower() {
-		return attPower;
+	protected int getRangedDamage() {
+		return rangedDamage;
 	}
 
-	public void setAttPower(int attPower) {
-		this.attPower = attPower;
+	protected void setRangedDamage(int rangedDamage) {
+		this.rangedDamage = rangedDamage;
 	}
 
-	protected int getDefense() {
-		return defense;
+	protected int getArmorClass() {
+		return armorClass;
 	}
 
-	protected void setDefense(int defense) {
-		this.defense = defense;
+	protected void setArmorClass(int armorClass) {
+		this.armorClass = armorClass;
 	}
 
-	void adjustHealthBy(int amount) {
-		health += amount;
-	}
-
-	@Override
-	public String toString() {
-		return getId() + "[hp: " + getHealth() + ", attack: " + getAttPower() + "]";
+	void adjustHitPointsBy(int amount) {
+		Game.userHero.getCharacter().hitPoints += amount;
 	}
 
 	protected String getName() {
@@ -64,6 +60,30 @@ public abstract class BareBones {
 
 	protected void setName(String name) {
 		this.name = name;
+	}
+
+	protected String getUserClass() {
+		return userClass;
+	}
+
+	protected void setUserClass(String userClass) {
+		this.userClass = userClass;
+	}
+
+	protected Object getMeleeWeapon() {
+		return meleeWeapon;
+	}
+
+	protected void setMeleeWeapon(Object meleeWeapon) {
+		this.meleeWeapon = meleeWeapon;
+	}
+
+	protected Object getRangedWeapon() {
+		return rangedWeapon;
+	}
+
+	protected void setRangedWeapon(Object rangedWeapon) {
+		this.rangedWeapon = rangedWeapon;
 	}
 
 	protected HashMap<String, Integer> getUserArmor() {
@@ -80,6 +100,14 @@ public abstract class BareBones {
 
 	protected void setUserWeapons(HashMap<String, Integer> userWeapons) {
 		this.userWeapons = userWeapons;
+	}
+	
+	protected HashMap<String, Integer> getUserMisc() {
+		return userMisc;
+	}
+
+	protected void setUserMisc (HashMap<String, Integer> userMisc) {
+		this.userMisc= userMisc;
 	}
 
 	protected int getLevel() {
@@ -99,34 +127,42 @@ public abstract class BareBones {
 	}
 
 	protected int getExp() {
-		return exp;
+		return experience;
 	}
 
 	protected void setExp(int exp) {
-		this.exp = exp;
-	}
-
-	protected int getStr() {
-		return str;
-	}
-
-	protected void setStr(int str) {
-		this.str = str;
-	}
-
-	protected int getDex() {
-		return dex;
-	}
-
-	protected void setDex(int dex) {
-		this.dex = dex;
+		this.experience = exp;
 	}
 
 	protected int getEscapeDC() {
-		return escapeDC;
+		return difficultyClass;
 	}
 
-	protected void setEscapeDC(int escapeDC) {
-		this.escapeDC = escapeDC;
+	protected void setEscapeDC(int difficultyClass) {
+		this.difficultyClass = difficultyClass;
+	}
+
+	protected int getProficiencyPoints() {
+		return proficiencyPoints;
+	}
+
+	protected void setProficiencyPoints(int proficiencyPoints) {
+		this.proficiencyPoints = proficiencyPoints;
+	}
+
+	protected int getEnemyHP() {
+		return enemyHP;
+	}
+
+	protected void setEnemyHP(int enemyHP) {
+		this.enemyHP = enemyHP;
+	}
+
+	protected int getStrength() {
+		return strength;
+	}
+
+	protected void setStrength(int strength) {
+		this.strength = strength;
 	}
 }

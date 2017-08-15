@@ -15,7 +15,7 @@ public class Tutorial {
 		while (fighting) {
 			// ....keep checking if the user/enemy reaches 0 HP...
 			// ....if so, break the loop
-			if (Game.userHero.getHealth() <= 0 || enemy0.getHealth() <= 0) {
+			if (Game.userHero.getCharacter().getHitPoints() <= 0 || enemy0.getEnemyHP() <= 0) {
 				fighting = false;
 				break;
 			}
@@ -23,22 +23,56 @@ public class Tutorial {
 			// ....and if input is 1 (attack), then proceed with battle
 			if (Game.userInput.hasNextInt()) {
 				int input = Game.userInput.nextInt();
-				if (!(input == 1 || input == 2 || input == 3)) {
+				if (!(input == 1 || input == 2 || input == 3 || input == 4)) {
 					CombatSystem.battleInput();
-				} else if (input == 1) {
-					combatSystem.attack();
-				} else if (input == 2) {
-					combatSystem.useItem();
-				} else if (input == 3) {
-					combatSystem.escape();
+				}
+				if ((Game.userHero.getUserClass().equals("Cleric")
+						|| (Game.userHero.getUserClass().equals("Wizard")))) {
+					switch (input) {
+					case 1:
+						input = 1;
+						combatSystem.spellAttack();
+						break;
+					case 2:
+						input = 2;
+						combatSystem.meleeAttack();
+						break;
+					case 3:
+						input = 3;
+						combatSystem.useItem();
+						break;
+					case 4:
+						input = 4;
+						combatSystem.escape();
+						break;
+					}
+				} else {
+					switch (input) {
+					case 1:
+						input = 1;
+						combatSystem.meleeAttack();
+						break;
+					case 2:
+						input = 2;
+						combatSystem.rangedAttack();
+						break;
+					case 3:
+						input = 3;
+						combatSystem.useItem();
+						break;
+					case 4:
+						input = 4;
+						combatSystem.escape();
+						break;
+					}
 				}
 			}
 			if (!fighting) {
 				// If the battle ends with the user having 0 HP, print loss...
 				// ....if the battle ends with the enemy having 0 HP, print win
-				if (Game.userHero.getHealth() <= 0) {
+				if (Game.userHero.getCharacter().getHitPoints() <= 0) {
 					youLost();
-				} else if (enemy0.getHealth() <= 0) {
+				} else if (enemy0.getEnemyHP() <= 0) {
 					youWon();
 				}
 			}
@@ -55,13 +89,13 @@ public class Tutorial {
 		System.out.println("\nYou have slain the enemy " + Tutorial.enemy0.getName() + "!");
 		Game.contDialogue();
 		Game.userInput.nextLine();
-		LootDrops.main(null);
 		LevelSystem.main(null);
 		Game.contDialogue();
 	}
 
 	// Print loss message
-	public static void youLost() {
+	public static void youLost() throws InterruptedException {
 		System.out.println("\nYou were slain by the enemy " + Tutorial.enemy0.getName() + "!");
+		Game.contDialogue();
 	}
 }
