@@ -13,6 +13,7 @@ public class PlayerChar extends BareBones {
 		this.userArmor = new LinkedHashMap<String, Integer>();
 		this.userWeapons = new LinkedHashMap<String, Integer>();
 		this.userMisc = new LinkedHashMap<String, Integer>();
+		this.userSpells = new LinkedHashMap<String, Integer>();
 	}
 
 	public void chooseClass() throws InterruptedException {
@@ -294,32 +295,15 @@ public class PlayerChar extends BareBones {
 
 	public void setSpells() {
 		if (Game.userHero.getUserClass().equals("Cleric")) {
-			this.userSpells = new LinkedHashMap<String, Integer>() {
-				{
-					put("Guidance", 0);
-					put("Light", 0);
-					put("Resistance", 0);
-					put("Sacred Flame", 0);
-					put("Spare the Dying", 0);
-					put("Thaumaturgy", 0);
-				}
-			};
+			userSpells.put("Guiding Bolt", 6);
+			userSpells.put("Inflict Wounds", 10);
+			userSpells.put("Sacred Flame", 8);
 		} else if (Game.userHero.getUserClass().equals("Wizard")) {
-			this.userSpells = new LinkedHashMap<String, Integer>() {
-				{
-					put("Acid Splash", 0);
-					put("Dancing Lights", 0);
-					put("Fire Bolt", 0);
-					put("Light", 0);
-					put("Mage Hand", 0);
-					put("Minor Illusion", 0);
-					put("Poison Spray", 0);
-					put("Prestidigitation", 0);
-					put("Ray of Frost", 0);
-					put("Shocking Grasp", 0);
-				}
-			};
+			userSpells.put("Acid Splash", 6);
+			userSpells.put("Fire Bolt", 10);
+			userSpells.put("Ray of Frost", 8);
 		}
+		System.out.println(userSpells);
 	}
 
 	public MyCharacter getCharacter() {

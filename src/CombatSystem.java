@@ -3,7 +3,13 @@ import java.util.*;
 public class CombatSystem {
 
 	public static void battleInput() {
-		System.out.print("\nWhat would you like to do? \n1: Attack \n2: Use Item \n3: Escape \n>> ");
+		if ((Game.userHero.getUserClass().equals("Cleric")) || (Game.userHero.getUserClass().equals("Wizard"))) {
+			System.out.print(
+					"\nWhat would you like to do? \n1: Use Spell \n2: Melee Attack \n3. Use Item \n4: Escape \n>> ");
+		} else {
+			System.out.print(
+					"\nWhat would you like to do? \n1: Melee Attack \n2: Ranged Attack \n3: Use Item \n4: Escape \n>> ");
+		}
 	}
 
 	public void meleeAttack() throws InterruptedException {
@@ -133,16 +139,48 @@ public class CombatSystem {
 			Tutorial.youWon();
 		}
 	}
-	
-	public void spellAttack() throws InterruptedException {
+
+	public void clericChooseSpell() throws InterruptedException {		
+		System.out.print("\nWhich spell would you like to use? \n1. Guiding Bolt \n2. Inflict Wounds \n3. Sacred Flame \n>> ");
+		if (Game.userInput.hasNextInt()) {
+			Random r = new Random();
+			int spellDamage = 0;
+			int spellRoll = 0;
+			int input = Game.userInput.nextInt();
+			if (!(input == 1 || input == 2 || input == 3)) {
+				clericChooseSpell();
+			}
+			switch (input) {
+			case 1:
+				input = 1;
+				spellDamage = Game.userHero.userSpells.get("Guiding Bolt");
+				spellRoll = ((r.nextInt(spellDamage) + 1) * 4);
+				clericSpellAttack(spellDamage, spellRoll);
+				break;
+			case 2:
+				input = 2;
+				spellDamage = Game.userHero.userSpells.get("Inflict Wounds");
+				spellRoll = ((r.nextInt(spellDamage) + 1) * 3);
+				clericSpellAttack(spellDamage, spellRoll);
+				break;
+			case 3:
+				input = 3;
+				spellDamage = Game.userHero.userSpells.get("Sacred Flame");
+				spellRoll = (r.nextInt(spellDamage) + 1);
+				clericSpellAttack(spellDamage, spellRoll);
+				break;
+			}
+		}
+	}
+
+	public void clericSpellAttack(int spellDamage, int spellRoll) throws InterruptedException {
 		System.out.println("\nYou attack the enemy " + Tutorial.enemy0.getName() + "!");
 
 		Random r = new Random();
 		// Roll for attack.
 		int d20 = (r.nextInt(20) + 1);
 		// Initialize dmg variable as 0.
-		int dmgRoll = (r.nextInt(Game.userHero.getRangedDamage() + 1));
-		int dmg = (dmgRoll + Game.userHero.getCharacter().getDexterity());
+		int dmg = (spellRoll + Game.userHero.getCharacter().getWisdom());
 
 		// If the hero rolls a 1, the attack automatically misses.
 		if (d20 == 1) {
@@ -167,7 +205,7 @@ public class CombatSystem {
 
 			// If the hero rolls a 20, the attack is a critical hit.
 		} else if (d20 == 20) {
-			int critRoll = (r.nextInt(Game.userHero.getRangedDamage()) + 1);
+			int critRoll = (r.nextInt(spellDamage) + 1);
 			int totalDmg = dmg + critRoll;
 
 			System.out.println("\n>>CRITICAL HIT!<< \nYou have dealt " + totalDmg + " damage to the enemy "
@@ -197,7 +235,103 @@ public class CombatSystem {
 			Tutorial.youWon();
 		}
 	}
+
+	public void wizardChooseSpell() throws InterruptedException {	
+		System.out.println("\nWhich spell would you like to use? \n1. Acid Splash \n2. Fire Bolt \n3. Ray of Frost \n>> ");
+		if (Game.userInput.hasNextInt()) {
+			Random r = new Random();
+			int spellDamage = 0;
+			int spellRoll = 0;
+			int input = Game.userInput.nextInt();
+			if (!(input == 1 || input == 2 || input == 3)) {
+				wizardChooseSpell();
+			}
+			switch (input) {
+			case 1:
+				input = 1;
+				spellDamage = Game.userHero.userSpells.get("Acid Splash");
+				spellRoll = (r.nextInt(spellDamage) + 1);
+				wizardSpellAttack(spellDamage, spellRoll);
+				break;
+			case 2:
+				input = 2;
+				spellDamage = Game.userHero.userSpells.get("Fire Bolt");
+				spellRoll = (r.nextInt(spellDamage) + 1);
+				wizardSpellAttack(spellDamage, spellRoll);
+				break;
+			case 3:
+				input = 3;
+				spellDamage = Game.userHero.userSpells.get("Ray of Frost");
+				spellRoll = (r.nextInt(spellDamage) + 1);
+				wizardSpellAttack(spellDamage, spellRoll);
+				break;
+			}
+		}
+	}
 	
+	public void wizardSpellAttack(int spellDamage, int spellRoll) throws InterruptedException {
+		System.out.println("\nYou attack the enemy " + Tutorial.enemy0.getName() + "!");
+
+		Random r = new Random();
+		// Roll for attack.
+		int d20 = (r.nextInt(20) + 1);
+		// Initialize dmg variable as 0.
+		int dmg = (spellRoll + Game.userHero.getCharacter().getIntelligence());
+
+		// If the hero rolls a 1, the attack automatically misses.
+		if (d20 == 1) {
+			System.out.println("\nYour attack missed!");
+
+			// If the hero rolls 1-19, add base attack and strength modifiers to
+			// the roll.
+		} else if ((d20 > 1) && (d20 < 20)) {
+			// If the total of the 1) roll, 2) base attack modifier, and 3)
+			// strength modifier is less than or equal to than the enemy's AC,
+			// the enemy blocks the attack.
+			if (dmg <= Game.userHero.getArmorClass()) {
+				System.out.println("\nThe enemy " + Tutorial.enemy0.getName() + " blocked your attack!");
+			} else {
+				// If the total of the roll and modifiers is greater than the
+				// enemy's AC, the attack hits.
+				System.out
+						.println("\nYou have dealt " + dmg + " damage to the enemy " + Tutorial.enemy0.getName() + "!");
+				// Subtract enemy attack damage from player's HP.
+				Tutorial.enemy0.setEnemyHP(Tutorial.enemy0.getEnemyHP() - dmg);
+			}
+
+			// If the hero rolls a 20, the attack is a critical hit.
+		} else if (d20 == 20) {
+			int critRoll = (r.nextInt(spellDamage) + 1);
+			int totalDmg = dmg + critRoll;
+
+			System.out.println("\n>>CRITICAL HIT!<< \nYou have dealt " + totalDmg + " damage to the enemy "
+					+ Tutorial.enemy0.getName() + "!");
+
+			// Subtract total damage from enemy's HP.
+			Tutorial.enemy0.setEnemyHP(Tutorial.enemy0.getEnemyHP() - totalDmg);
+		}
+
+		// If the hero rolls a 20, the attack is a critical hit
+
+		// Check enemy status.
+		enemyStatus();
+		Thread.sleep(2000);
+
+		// Check if the enemy still has health.
+		if (Tutorial.enemy0.getEnemyHP() > 0)
+
+		{
+			// Enemy's turn.
+			enemyAttack();
+			// Check player's HP.
+			playerStatus();
+			// Print battle options.
+			battleInput();
+		} else if (Tutorial.enemy0.getEnemyHP() <= 0) {
+			Tutorial.youWon();
+		}
+	}
+
 	public void useItem() throws InterruptedException {
 		// Add 20 HP to the player's HP.
 		Game.userHero.getCharacter().setHitPoints(Game.userHero.getEnemyHP() + 20);

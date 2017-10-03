@@ -8,7 +8,7 @@ public class Enemy0 extends BareBones {
 	public Enemy0() {
 		ArrayList<String> enemies = new ArrayList<String>() {
 			{
-				//add("Rat");
+				add("Rat");
 				add("Skeleton");
 				add("Zombie");
 			}

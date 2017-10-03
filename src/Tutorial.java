@@ -26,12 +26,30 @@ public class Tutorial {
 				if (!(input == 1 || input == 2 || input == 3 || input == 4)) {
 					CombatSystem.battleInput();
 				}
-				if ((Game.userHero.getUserClass().equals("Cleric")
-						|| (Game.userHero.getUserClass().equals("Wizard")))) {
+				if ((Game.userHero.getUserClass().equals("Cleric"))) {
 					switch (input) {
 					case 1:
 						input = 1;
-						combatSystem.spellAttack();
+						combatSystem.clericChooseSpell();
+						break;
+					case 2:
+						input = 2;
+						combatSystem.meleeAttack();
+						break;
+					case 3:
+						input = 3;
+						combatSystem.useItem();
+						break;
+					case 4:
+						input = 4;
+						combatSystem.escape();
+						break;
+					}
+				} else if ((Game.userHero.getUserClass().equals("Wizard"))) {
+					switch (input) {
+					case 1:
+						input = 1;
+						combatSystem.wizardChooseSpell();
 						break;
 					case 2:
 						input = 2;

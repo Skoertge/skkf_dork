@@ -7,7 +7,6 @@ public class Game {
 	public static String location = "";
 
 	void run() throws InterruptedException {
-
 		// Begin instruction
 		System.out.println("Welcome to Dork, a text-based adventure game.");
 		contDialogue();
@@ -16,6 +15,7 @@ public class Game {
 		System.out.println(
 				"\n\n\"Pleasure to make your acquaintance, " + userHero.getName() + ". What is your calling?\"");
 		userHero.chooseClass();
+		userHero.setSpells();
 		showInventory();
 		userHero.showCharacter();
 		contDialogue();

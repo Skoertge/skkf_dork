@@ -21,12 +21,10 @@ public class Blacksmith {
 		}
 	}
 
-	public static ArrayList buy(){
-		
-		
+	public static ArrayList buy() {
+
 		return null;
-		
-	}
-		
+
 	}
 
+}
